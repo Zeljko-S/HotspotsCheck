@@ -8,15 +8,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
@@ -38,21 +37,24 @@ fun HomeScreen() {
 @Composable
 fun Cities(citylist: List<City> = getCities()) {
 
+    val configuration = LocalConfiguration.current
+    val screenHeight = configuration.screenHeightDp.dp
+
     LazyColumn() {
         items(citylist) { city ->
             Column {
                 Card(modifier = Modifier
                     .clickable { /* TODO() */ }
+                    .height(screenHeight/4)
                     .fillMaxWidth()
-                  //  .height(200.dp)
-                    )
+                )
                 {
-                    AsyncImage(model = citylist[2].img, contentDescription = null)
+                    AsyncImage(model = city.img, contentDescription = null, contentScale = ContentScale.FillWidth)
 
 
                 }
                 Surface(modifier = Modifier
-                 //   .clickable { /* TODO() */ }
+                    //   .clickable { /* TODO() */ }
                     .fillMaxWidth()
                     .padding(4.dp)
                     .background(color = Color.Black) //HINTERGRUNDFARBE ANSCHAUEN
