@@ -39,6 +39,7 @@ fun Cities(citylist: List<City> = getCities()) {
 
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp.dp
+    val zeljko: String
 
     LazyColumn() {
         items(citylist) { city ->
