@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.hotspotscheck.navigation.Navigation
 import com.example.hotspotscheck.screens.HomeScreen
 import com.example.hotspotscheck.ui.theme.HotspotsCheckTheme
 
@@ -23,7 +24,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    HomeScreen()
+                    MyApp {
+                        Navigation()
+                    }
                 }
             }
         }
@@ -41,6 +44,6 @@ fun MyApp(content: @Composable () -> Unit) {
 @Composable
 fun DefaultPreview() {
     HotspotsCheckTheme {
-        HomeScreen()
+        //HomeScreen()
     }
 }

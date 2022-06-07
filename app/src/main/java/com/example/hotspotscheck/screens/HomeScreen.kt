@@ -21,33 +21,42 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.example.hotspotscheck.assets.TopBar
 import com.example.hotspotscheck.models.City
 import com.example.hotspotscheck.models.getCities
+import com.example.hotspotscheck.navigation.Screens
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController = rememberNavController()) {
 
-    Cities()
-
-
+    TopBar(title = "Cities",
+        onTopbarClick = {
+            navController.navigate(route = Screens.ChecklistScreen.name)
+        }) {
+        Cities(navController = navController)
+    }
 
 }
 
 @Composable
-fun Cities(citylist: List<City> = getCities()) {
+fun Cities(citylist: List<City> = getCities(), navController: NavController) {
 
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp.dp
-    val zeljko: String
 
     LazyColumn() {
         items(citylist) { city ->
-            Column {
+           // Column {
                 Card(modifier = Modifier
-                    .clickable { /* TODO() */ }
-                    .height(screenHeight/4)
+                    .height(screenHeight / 4)
                     .fillMaxWidth()
+                    .clickable {
+                        navController.navigate(route = Screens.HotspotScreen.name + "/${city.id}")
+                    }
+
                 )
                 {
                     AsyncImage(model = city.img, contentDescription = null, contentScale = ContentScale.FillWidth)
@@ -65,7 +74,7 @@ fun Cities(citylist: List<City> = getCities()) {
                 {
                     Text(text = city.name, style = MaterialTheme.typography.h4)
                 }
-            }
+       //     }
 
         }
 
