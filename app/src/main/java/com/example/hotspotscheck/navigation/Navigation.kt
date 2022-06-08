@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.hotspotscheck.screens.ChecklistScreen
+import com.example.hotspotscheck.screens.DetailScreen
 import com.example.hotspotscheck.screens.HomeScreen
 import com.example.hotspotscheck.screens.HotspotScreen
 
@@ -26,6 +27,7 @@ fun Navigation() {
         }
 
         composable(route = Screens.ChecklistScreen.name) { ChecklistScreen(navController = navController)}
+        composable(route = Screens.DetailScreen.name) { DetailScreen(navController = navController)}
 
     }
 
