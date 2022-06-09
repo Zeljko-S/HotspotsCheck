@@ -28,14 +28,14 @@ import com.example.hotspotscheck.navigation.Screens
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Grid(hotspot: Hotspot) {
+fun Grid(hotspot: Hotspot, onHotspotClick: () -> Unit = {}) {
 
     var checkchange by remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
             .padding(2.dp)
-            .clickable { /*TODO*/ }
+            .clickable { onHotspotClick() }
 
     ) {
         Box(contentAlignment = Alignment.BottomCenter) {
@@ -45,7 +45,7 @@ fun Grid(hotspot: Hotspot) {
                 contentScale = ContentScale.FillWidth
             )
 
-            Row {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = hotspot.name,
                     color = Color.White,

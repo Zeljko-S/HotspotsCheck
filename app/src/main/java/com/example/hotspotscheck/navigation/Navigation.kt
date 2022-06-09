@@ -27,7 +27,17 @@ fun Navigation() {
         }
 
         composable(route = Screens.ChecklistScreen.name) { ChecklistScreen(navController = navController)}
-        composable(route = Screens.DetailScreen.name) { DetailScreen(navController = navController)}
+
+        composable(route = Screens.DetailScreen.name + "/{cityid}" + "/{hotspotid}", arguments = listOf(navArgument("hotspotid") {
+                type = NavType.StringType
+            },
+            navArgument("cityid") {
+                type = NavType.StringType
+            },
+            )
+        ) { backStackEntry ->
+            DetailScreen(navController = navController, cityid = backStackEntry.arguments?.getString("cityid"), hotspotid = backStackEntry.arguments?.getString("hotspotid"))
+        }
 
     }
 

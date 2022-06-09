@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.example.hotspotscheck.assets.BackIcon
 import com.example.hotspotscheck.assets.Grid
 import com.example.hotspotscheck.assets.TopBar
 import com.example.hotspotscheck.models.City
@@ -33,32 +34,34 @@ fun HotspotScreen(navController: NavController = rememberNavController(), cityid
     val city = filtercity(cityid = cityid)
 
     TopBar(title = city.name,
+        onBackClick = {
+            BackIcon() {
+                navController.popBackStack()
+            }
+        },
         onTopbarClick = {
-            navController.navigate(route = Screens.ChecklistScreen.name)
+            // navController.navigate(route = Screens.ChecklistScreen.name)
         }) {
-           // Text(text = "Some important text")
-            Hotspots(city.hotspots, navController = navController)
-        }
+        // Text(text = "Some important text")
+        Hotspots(city.hotspots, navController = navController, city = city)
+    }
 }
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Hotspots(hotspotlist: List<Hotspot>, navController: NavController) {
+fun Hotspots(hotspotlist: List<Hotspot>, navController: NavController, city: City) {
 
     LazyVerticalGrid(cells = GridCells.Fixed(2), contentPadding = PaddingValues(2.dp)) {
 
-        items(hotspotlist) { hotspot ->
-
-            Grid(hotspot = hotspot)
+        items(city.hotspots) { hotspot ->
+            Grid(hotspot = hotspot) {
+                navController.navigate(route = Screens.DetailScreen.name +"/${city.id}" + "/${hotspot.id}")
+            }
         }
   
     
     }
-
-
-
-
 
 }
 

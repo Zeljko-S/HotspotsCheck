@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.example.hotspotscheck.assets.MenuIcon
 import com.example.hotspotscheck.assets.TopBar
 import com.example.hotspotscheck.models.City
 import com.example.hotspotscheck.models.getCities
@@ -34,7 +35,9 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
 
     TopBar(title = "Cities",
         onTopbarClick = {
-            navController.navigate(route = Screens.ChecklistScreen.name)
+            MenuIcon() {
+                navController.navigate(route = Screens.ChecklistScreen.name)
+            }
         }) {
         Cities(navController = navController)
     }
