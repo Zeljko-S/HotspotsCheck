@@ -40,7 +40,7 @@ fun Grid(hotspot: Hotspot, onHotspotClick: () -> Unit = {}) {
     ) {
         Box(contentAlignment = Alignment.BottomCenter) {
             AsyncImage(
-                model = hotspot.img,
+                model = hotspot.img[0],
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth
             )
