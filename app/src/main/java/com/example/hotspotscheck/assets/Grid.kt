@@ -28,7 +28,7 @@ import com.example.hotspotscheck.navigation.Screens
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Grid(hotspot: Hotspot, onHotspotClick: () -> Unit = {}) {
+fun Grid(hotspot: Hotspot, onHotspotClick: () -> Unit = {}, content: @Composable () -> Unit = {}) {
 
     var checkchange by remember { mutableStateOf(false) }
 
@@ -54,30 +54,34 @@ fun Grid(hotspot: Hotspot, onHotspotClick: () -> Unit = {}) {
                     modifier = Modifier.padding(2.dp)
                 )
 
-                IconButton(onClick = { checkchange = !checkchange }) {
+                content()
 
-                    if (!checkchange) {
-                        Icon(
-                            imageVector = Icons.Default.CheckCircle,
-                            contentDescription = "Check",
-                            modifier = Modifier
-                                .padding(2.dp)
-                                .clickable { checkchange = !checkchange },
-                            tint = Color.White
-                        )
-                    } else {
-                        Icon(
-                            imageVector = Icons.Default.CheckCircle,
-                            contentDescription = "Check",
-                            modifier = Modifier
-                                .padding(2.dp)
-                                .clickable { checkchange = !checkchange },
-                            tint = Color.Cyan
-                        )
-                    }
-                }
             }
         }
     }
+}
+
+@Composable
+fun CheckIcon(isChecked: Boolean, onCheckClick: () -> Unit = {}) {
+
+    IconButton(onClick = { onCheckClick() }) {
+
+        if (!isChecked) {
+            Icon(
+                imageVector = Icons.Default.CheckCircle,
+                contentDescription = "Check",
+                modifier = Modifier.padding(2.dp),
+                tint = Color.White
+            )
+        } else {
+            Icon(
+                imageVector = Icons.Default.CheckCircle,
+                contentDescription = "Check",
+                modifier = Modifier.padding(2.dp),
+                tint = Color.Cyan
+            )
+        }
+    }
+
 }
 

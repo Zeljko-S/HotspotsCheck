@@ -17,19 +17,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.hotspotscheck.assets.BackIcon
+import com.example.hotspotscheck.assets.CheckIcon
 import com.example.hotspotscheck.assets.Grid
 import com.example.hotspotscheck.assets.TopBar
 import com.example.hotspotscheck.models.City
 import com.example.hotspotscheck.models.Hotspot
 import com.example.hotspotscheck.models.getCities
 import com.example.hotspotscheck.navigation.Screens
+import com.example.hotspotscheck.viewmodels.CheckViewModel
 
 @Composable
-fun HotspotScreen(navController: NavController = rememberNavController(), cityid: String?) {
+fun HotspotScreen(navController: NavController = rememberNavController(), cityid: String?, viewModel: CheckViewModel = viewModel()) {
 
     val city = filtercity(cityid = cityid)
 
@@ -43,33 +46,37 @@ fun HotspotScreen(navController: NavController = rememberNavController(), cityid
             // navController.navigate(route = Screens.ChecklistScreen.name)
         }) {
         // Text(text = "Some important text")
-        Hotspots(city.hotspots, navController = navController, city = city)
+        Hotspots(city.hotspots, navController = navController, city = city, viewModel = viewModel)
     }
 }
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Hotspots(hotspotlist: List<Hotspot>, navController: NavController, city: City) {
+fun Hotspots(hotspotlist: List<Hotspot>, navController: NavController, city: City, viewModel: CheckViewModel) {
 
     LazyVerticalGrid(cells = GridCells.Fixed(2), contentPadding = PaddingValues(2.dp)) {
 
         items(city.hotspots) { hotspot ->
-            Grid(hotspot = hotspot) {
-                navController.navigate(route = Screens.DetailScreen.name +"/${city.id}" + "/${hotspot.id}")
+            Grid(hotspot = hotspot, onHotspotClick = {
+                navController.navigate(route = Screens.DetailScreen.name + "/${city.id}" + "/${hotspot.id}")
+            }) {
+
+                CheckIcon(isChecked = viewModel.checkVisit(hotspot), onCheckClick = {
+                    if (!viewModel.checkVisit(hotspot)) {
+                        viewModel.addCheck(hotspot)
+                    } else {
+                        viewModel.removeCheck(hotspot)
+                    }
+                })
+
             }
         }
-  
-    
+
+
     }
 
 }
-
-/*@Composable
-fun CheckIcon() {
-
-}*/
-
 
 @Composable
 fun filtercity(cityid: String?) : City {

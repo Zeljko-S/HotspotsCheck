@@ -29,6 +29,8 @@ import com.example.hotspotscheck.assets.TopBar
 import com.example.hotspotscheck.models.City
 import com.example.hotspotscheck.models.getCities
 import com.example.hotspotscheck.navigation.Screens
+import com.example.hotspotscheck.viewmodels.CheckViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun HomeScreen(navController: NavController = rememberNavController()) {

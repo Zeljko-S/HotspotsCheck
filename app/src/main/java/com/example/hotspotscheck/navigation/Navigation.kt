@@ -1,6 +1,7 @@
 package com.example.hotspotscheck.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -10,11 +11,13 @@ import com.example.hotspotscheck.screens.ChecklistScreen
 import com.example.hotspotscheck.screens.DetailScreen
 import com.example.hotspotscheck.screens.HomeScreen
 import com.example.hotspotscheck.screens.HotspotScreen
+import com.example.hotspotscheck.viewmodels.CheckViewModel
 
 @Composable
 fun Navigation() {
 
     val navController = rememberNavController()
+    val checkViewModel: CheckViewModel = viewModel()
 
     NavHost(navController = navController, startDestination = Screens.HomeScreen.name) {
 
@@ -23,10 +26,19 @@ fun Navigation() {
                 type = NavType.StringType
             })
         ) { backStackEntry ->
-            HotspotScreen(navController = navController, cityid = backStackEntry.arguments?.getString("cityid"))
+            HotspotScreen(navController = navController, cityid = backStackEntry.arguments?.getString("cityid"), viewModel = checkViewModel)
         }
 
-        composable(route = Screens.ChecklistScreen.name) { ChecklistScreen(navController = navController)}
+    /*    composable(route = Screens.ChecklistScreen.name + "/{cityid}", arguments = listOf(navArgument("cityid") {
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            ChecklistScreen(navController = navController, viewModel = checkViewModel, cityid = backStackEntry.arguments?.getString("cityid"))
+        }*/
+
+        //CODE AUSKOMMENTIEREN FÜR ROUTE MIT CITYID
+        composable(route = Screens.ChecklistScreen.name) { ChecklistScreen(navController = navController, viewModel = checkViewModel) }
+
 
         composable(route = Screens.DetailScreen.name + "/{cityid}" + "/{hotspotid}", arguments = listOf(navArgument("hotspotid") {
                 type = NavType.StringType
@@ -36,8 +48,25 @@ fun Navigation() {
             },
             )
         ) { backStackEntry ->
-            DetailScreen(navController = navController, cityid = backStackEntry.arguments?.getString("cityid"), hotspotid = backStackEntry.arguments?.getString("hotspotid"))
+            DetailScreen(
+                navController = navController,
+                cityid = backStackEntry.arguments?.getString("cityid"),
+                hotspotid = backStackEntry.arguments?.getString("hotspotid"),
+                viewModel = checkViewModel
+            )
         }
+
+     /*   composable(route = Screens.DetailScreen.name + "/{hotspotid}", arguments = listOf(navArgument("hotspotid") {
+           type = NavType.StringType
+       },
+       )
+   ) { backStackEntry ->
+       DetailScreen(
+           navController = navController,
+           hotspotid = backStackEntry.arguments?.getString("hotspotid"),
+           viewModel = checkViewModel
+       )
+   }*/
 
     }
 
