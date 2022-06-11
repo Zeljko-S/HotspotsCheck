@@ -21,4 +21,8 @@ class CheckViewModel : ViewModel(){
     fun checkVisit(hotspot: Hotspot): Boolean {
         return _checkhotspots.contains(hotspot)
     }
+
+    fun changeVisitDate(hotspot: Hotspot, newdate: String) {
+        hotspot.visitdate = newdate
+    }
 }

@@ -36,7 +36,7 @@ fun Navigation() {
             ChecklistScreen(navController = navController, viewModel = checkViewModel, cityid = backStackEntry.arguments?.getString("cityid"))
         }*/
 
-        //CODE AUSKOMMENTIEREN FÜR ROUTE MIT CITYID
+        //CODE AUSKOMMENTIEREN IN CHECKLISTSCREEN FÜR ROUTE MIT CITYID
         composable(route = Screens.ChecklistScreen.name) { ChecklistScreen(navController = navController, viewModel = checkViewModel) }
 
 
