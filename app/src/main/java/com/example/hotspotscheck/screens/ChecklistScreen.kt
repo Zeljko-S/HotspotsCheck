@@ -46,7 +46,7 @@ fun CheckedHotspots(hotspots: List<Hotspot>, navController: NavController, viewM
 
         items(hotspots) { hotspot ->
             Grid(hotspot = hotspot, onHotspotClick = {
-         //       navController.navigate(route = Screens.DetailScreen.name + "/${city.id}" + "/${hotspot.id}")
+                navController.navigate(route = Screens.DetailScreen.name + "/${hotspot.cityid}" + "/${hotspot.id}")
             }) {
 
                 CheckIcon(isChecked = viewModel.checkVisit(hotspot), onCheckClick = {
