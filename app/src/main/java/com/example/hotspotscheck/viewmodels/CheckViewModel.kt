@@ -74,7 +74,7 @@ class CheckViewModel : ViewModel(){
     fun removePlan(hotspot: Hotspot) {
 
         var hotspotremover = hotspot
-        _checkhotspots.forEach {
+        _planhotspots.forEach {
             if ( it.cityid == hotspot.cityid && it.id == hotspot.id ) hotspotremover = it
         }
         _planhotspots.remove(hotspotremover)
