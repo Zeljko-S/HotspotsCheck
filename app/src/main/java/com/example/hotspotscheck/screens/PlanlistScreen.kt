@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -15,47 +14,38 @@ import com.example.hotspotscheck.assets.BackIcon
 import com.example.hotspotscheck.assets.CheckIcon
 import com.example.hotspotscheck.assets.Grid
 import com.example.hotspotscheck.assets.TopBar
-import com.example.hotspotscheck.models.City
 import com.example.hotspotscheck.models.Hotspot
 import com.example.hotspotscheck.navigation.Screens
 import com.example.hotspotscheck.viewmodels.CheckViewModel
 
 @Composable
-fun ChecklistScreen(navController: NavController = rememberNavController(), viewModel: CheckViewModel = viewModel()) {
+fun PlanlistScreen(navController: NavController = rememberNavController(), viewModel: CheckViewModel = viewModel()) {
 
-    val hotspots = viewModel.checkHotspots
+    val hotspots = viewModel.planhotspots
 
-    TopBar(title = "Checklist",
+    TopBar(title = "Planlist",
         onBackClick = {
             BackIcon() {
                 navController.popBackStack()
             }
         },
     ) {
-        CheckedHotspots(hotspots = hotspots, navController = navController, viewModel = viewModel)
+        PlannedHotspots(hotspots = hotspots, navController = navController)
     }
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CheckedHotspots(hotspots: List<Hotspot>, navController: NavController, viewModel: CheckViewModel) {
+fun PlannedHotspots(hotspots: List<Hotspot>, navController: NavController) {
 
     LazyVerticalGrid(cells = GridCells.Fixed(2), contentPadding = PaddingValues(2.dp)) {
 
         items(hotspots) { hotspot ->
             Grid(hotspot = hotspot, onHotspotClick = {
                 navController.navigate(route = Screens.DetailScreen.name + "/${hotspot.cityid}" + "/${hotspot.id}")
-            }) {
-
-                CheckIcon(isChecked = viewModel.checkVisit(hotspot), onCheckClick = {
-                    if (!viewModel.checkVisit(hotspot)) {
-                        viewModel.addCheck(hotspot)
-                    } else {
-                        viewModel.removeCheck(hotspot)
-                    }
-                })
-            }
+            })
         }
+
     }
 
 }

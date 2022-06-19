@@ -43,17 +43,16 @@ fun HotspotScreen(navController: NavController = rememberNavController(), cityid
             }
         },
         onTopbarClick = {
-            // navController.navigate(route = Screens.ChecklistScreen.name)
+
         }) {
-        // Text(text = "Some important text")
-        Hotspots(city.hotspots, navController = navController, city = city, viewModel = viewModel)
+        Hotspots(navController = navController, city = city, viewModel = viewModel)
     }
 }
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Hotspots(hotspotlist: List<Hotspot>, navController: NavController, city: City, viewModel: CheckViewModel) {
+fun Hotspots(navController: NavController, city: City, viewModel: CheckViewModel) {
 
     LazyVerticalGrid(cells = GridCells.Fixed(2), contentPadding = PaddingValues(2.dp)) {
 
@@ -69,11 +68,8 @@ fun Hotspots(hotspotlist: List<Hotspot>, navController: NavController, city: Cit
                         viewModel.removeCheck(hotspot)
                     }
                 })
-
             }
         }
-
-
     }
 
 }

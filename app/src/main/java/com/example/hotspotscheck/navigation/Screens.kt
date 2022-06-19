@@ -4,5 +4,6 @@ enum class Screens {
     HomeScreen,
     HotspotScreen,
     ChecklistScreen,
-    DetailScreen
+    DetailScreen,
+    PlanlistScreen
 }

@@ -37,9 +37,13 @@ fun HomeScreen(navController: NavController = rememberNavController()) {
 
     TopBar(title = "Cities",
         onTopbarClick = {
-            MenuIcon() {
-                navController.navigate(route = Screens.ChecklistScreen.name)
-            }
+            MenuIcon(
+                onTopbarCheck = {
+                    navController.navigate(route = Screens.ChecklistScreen.name)
+                },
+                onTopbarPlan = {
+                    navController.navigate(route = Screens.PlanlistScreen.name)
+                })
         }) {
         Cities(navController = navController)
     }
@@ -54,35 +58,29 @@ fun Cities(citylist: List<City> = getCities(), navController: NavController) {
 
     LazyColumn() {
         items(citylist) { city ->
-           // Column {
-                Card(modifier = Modifier
-                    .height(screenHeight / 4)
-                    .fillMaxWidth()
-                    .clickable {
-                        navController.navigate(route = Screens.HotspotScreen.name + "/${city.id}")
-                    }
-
+            Card(modifier = Modifier
+                .height(screenHeight / 4)
+                .fillMaxWidth()
+                .clickable { navController.navigate(route = Screens.HotspotScreen.name + "/${city.id}")
+                })
+            {
+                AsyncImage(
+                    model = city.img,
+                    contentDescription = null,
+                    contentScale = ContentScale.FillWidth
                 )
-                {
-                    AsyncImage(model = city.img, contentDescription = null, contentScale = ContentScale.FillWidth)
+            }
 
-
-                }
-                Surface(modifier = Modifier
-                    //   .clickable { /* TODO() */ }
+            Surface(
+                modifier = Modifier
                     .fillMaxWidth()
                     .padding(4.dp)
-                    .background(color = Color.Black) //HINTERGRUNDFARBE ANSCHAUEN
-
-
-                )
-                {
-                    Text(text = city.name, style = MaterialTheme.typography.h4)
-                }
-       //     }
-
+                    .background(color = MaterialTheme.colors.secondary) //HINTERGRUNDFARBE ANSCHAUEN
+            )
+            {
+                Text(text = city.name, style = MaterialTheme.typography.h4)
+            }
         }
-
     }
 }
 

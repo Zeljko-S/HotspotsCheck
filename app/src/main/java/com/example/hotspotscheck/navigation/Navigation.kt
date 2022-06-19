@@ -7,10 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.hotspotscheck.screens.ChecklistScreen
-import com.example.hotspotscheck.screens.DetailScreen
-import com.example.hotspotscheck.screens.HomeScreen
-import com.example.hotspotscheck.screens.HotspotScreen
+import com.example.hotspotscheck.screens.*
 import com.example.hotspotscheck.viewmodels.CheckViewModel
 
 @Composable
@@ -29,16 +26,7 @@ fun Navigation() {
             HotspotScreen(navController = navController, cityid = backStackEntry.arguments?.getString("cityid"), viewModel = checkViewModel)
         }
 
-    /*    composable(route = Screens.ChecklistScreen.name + "/{cityid}", arguments = listOf(navArgument("cityid") {
-                type = NavType.StringType
-            })
-        ) { backStackEntry ->
-            ChecklistScreen(navController = navController, viewModel = checkViewModel, cityid = backStackEntry.arguments?.getString("cityid"))
-        }*/
-
-        //CODE AUSKOMMENTIEREN IN CHECKLISTSCREEN FÜR ROUTE MIT CITYID
         composable(route = Screens.ChecklistScreen.name) { ChecklistScreen(navController = navController, viewModel = checkViewModel) }
-
 
         composable(route = Screens.DetailScreen.name + "/{cityid}" + "/{hotspotid}", arguments = listOf(navArgument("hotspotid") {
                 type = NavType.StringType
@@ -56,18 +44,7 @@ fun Navigation() {
             )
         }
 
-     /*   composable(route = Screens.DetailScreen.name + "/{hotspotid}", arguments = listOf(navArgument("hotspotid") {
-           type = NavType.StringType
-       },
-       )
-   ) { backStackEntry ->
-       DetailScreen(
-           navController = navController,
-           hotspotid = backStackEntry.arguments?.getString("hotspotid"),
-           viewModel = checkViewModel
-       )
-   }*/
+        composable(route= Screens.PlanlistScreen.name) { PlanlistScreen(navController = navController, viewModel = checkViewModel) }
 
     }
-
 }

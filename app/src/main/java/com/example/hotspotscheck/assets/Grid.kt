@@ -9,10 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.runtime.*
@@ -30,13 +27,10 @@ import com.example.hotspotscheck.navigation.Screens
 @Composable
 fun Grid(hotspot: Hotspot, onHotspotClick: () -> Unit = {}, content: @Composable () -> Unit = {}) {
 
-    var checkchange by remember { mutableStateOf(false) }
-
     Card(
         modifier = Modifier
             .padding(2.dp)
             .clickable { onHotspotClick() }
-
     ) {
         Box(contentAlignment = Alignment.BottomCenter) {
             AsyncImage(

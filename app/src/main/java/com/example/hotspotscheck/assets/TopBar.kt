@@ -1,6 +1,7 @@
 package com.example.hotspotscheck.assets
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -23,7 +24,8 @@ fun TopBar(title: String, onBackClick: @Composable () -> Unit = {}, onTopbarClic
                 navigationIcon = {
                     onBackClick()
                 },
-                backgroundColor = Color.Cyan,
+                backgroundColor = MaterialTheme.colors.primary,
+                contentColor = MaterialTheme.colors.secondary,
                 actions = {
                     onTopbarClick()
 
@@ -36,7 +38,7 @@ fun TopBar(title: String, onBackClick: @Composable () -> Unit = {}, onTopbarClic
 }
 
 @Composable
-fun MenuIcon(onTopbarClick: () -> Unit = {}) {
+fun MenuIcon(onTopbarCheck: () -> Unit = {}, onTopbarPlan: () -> Unit = {}) {
 
     var showMenu by remember {
         mutableStateOf(false)
@@ -47,7 +49,8 @@ fun MenuIcon(onTopbarClick: () -> Unit = {}) {
     }
 
     DropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
-        DropdownMenuItem(onClick = { onTopbarClick() }) {
+        DropdownMenuItem(onClick = { onTopbarCheck() }) {
+
             Row() {
                 Icon(
                     imageVector = Icons.Default.Check,
@@ -63,6 +66,24 @@ fun MenuIcon(onTopbarClick: () -> Unit = {}) {
 
             }
         }
+        DropdownMenuItem(onClick = { onTopbarPlan() }) {
+
+            Row() {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = "Planlist",
+                    modifier = Modifier.padding(4.dp)
+                )
+                Text(
+                    text = "Planlist",
+                    modifier = Modifier
+                        .padding(4.dp)
+                        .width(100.dp)
+                )
+
+            }
+        }
+
     }
 
 }
